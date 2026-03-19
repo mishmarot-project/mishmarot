@@ -13,5 +13,10 @@ RUN npm install
 FROM base AS runner
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+RUN addgroup --system --gid 1001 workers
+RUN adduser --system --uid 1001 worker
+USER worker
+
 WORKDIR /app/workers
 CMD ["node", "--loader", "tsx", "src/index.ts"]

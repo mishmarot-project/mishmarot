@@ -39,6 +39,14 @@ This project handles data about hate crimes. When contributing:
 - Test data should use clearly synthetic incidents, never real ones
 - Be mindful that this data represents real harm to real people
 
+## Issue Policy
+
+**Public issues** (default): Feature requests, data source proposals, application bugs, taxonomy discussions, documentation, UI/UX feedback.
+
+**Private** (use [GitHub Security Advisories](https://github.com/mishmarot-project/mishmarot/security/advisories/new)): Security vulnerabilities, infrastructure incidents, anything referencing internal hostnames or IPs, legal matters.
+
+When in doubt, report privately — we can always make it public later.
+
 ## Questions?
 
 Open an issue or discussion on GitHub.

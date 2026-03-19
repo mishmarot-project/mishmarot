@@ -6,7 +6,7 @@ If you discover a security vulnerability in Mishmarot, please report it responsi
 
 **Do NOT open a public GitHub issue for security vulnerabilities.**
 
-Email: security@mishmarot.org (to be configured)
+Instead, use [GitHub's private vulnerability reporting](https://github.com/mishmarot-project/mishmarot/security/advisories/new). This keeps the report confidential until a fix is ready.
 
 Please include:
 - Description of the vulnerability
