@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { IncidentMap } from "@/components/map/incident-map";
 import { SourceHealthBar } from "@/components/filters/source-health-bar";
 
@@ -24,24 +25,24 @@ export default function DashboardPage() {
           </span>
         </div>
         <nav className="pointer-events-auto inline-flex ml-4 gap-1 bg-neutral-900/80 backdrop-blur-sm rounded-lg border border-neutral-800">
-          <a
+          <Link
             href="/"
             className="px-3 py-2 text-sm font-medium text-neutral-100 bg-neutral-800 rounded-lg"
           >
             Globe
-          </a>
-          <a
+          </Link>
+          <Link
             href="/timeline"
             className="px-3 py-2 text-sm font-medium text-neutral-400 hover:text-neutral-100 transition-colors"
           >
             Timeline
-          </a>
-          <a
+          </Link>
+          <Link
             href="/sources"
             className="px-3 py-2 text-sm font-medium text-neutral-400 hover:text-neutral-100 transition-colors"
           >
             Sources
-          </a>
+          </Link>
         </nav>
       </header>
 

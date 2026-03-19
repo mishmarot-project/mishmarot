@@ -1,18 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
-/**
- * Public incidents query endpoint.
- * Filtered by Supabase RLS — only returns confirmed/verified incidents
- * with 72-hour delay for unauthenticated requests.
- *
- * GET /api/incidents?country=US&from=2024-01-01&to=2024-12-31&type=assault&limit=100
- */
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const country = searchParams.get("country");
@@ -23,6 +11,7 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(parseInt(searchParams.get("limit") ?? "100"), 1000);
   const offset = parseInt(searchParams.get("offset") ?? "0");
 
+  const supabase = getSupabase();
   let query = supabase
     .from("incidents")
     .select("*", { count: "exact" })

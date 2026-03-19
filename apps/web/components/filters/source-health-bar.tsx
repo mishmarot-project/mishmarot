@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 interface SourceStatus {
   id: string;
@@ -20,7 +20,7 @@ export function SourceHealthBar() {
 
   useEffect(() => {
     async function fetchSources() {
-      const { data } = await supabase
+      const { data } = await getSupabase()
         .from("data_sources")
         .select("id, name, last_success_at, update_frequency")
         .eq("is_enabled", true)

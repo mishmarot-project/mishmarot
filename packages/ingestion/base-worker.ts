@@ -137,12 +137,10 @@ export abstract class BaseIngestionWorker {
    * Call once at startup.
    */
   async registerCron(): Promise<void> {
-    await this.queue.upsertJobSchedulers([
-      {
-        name: `${this.config.sourceId}-scheduled`,
-        pattern: this.config.cronSchedule,
-      },
-    ]);
+    await this.queue.upsertJobScheduler(
+      `${this.config.sourceId}-scheduled`,
+      { pattern: this.config.cronSchedule },
+    );
     console.log(
       `[${this.config.sourceId}] Cron registered: ${this.config.cronSchedule}`
     );

@@ -1,17 +1,8 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/supabase-server";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-/**
- * Public health endpoint showing source freshness.
- * Displayed on the source health bar and available as a public API.
- * GET /api/health
- */
 export async function GET() {
+  const supabase = getServerSupabase();
   const { data: sources, error } = await supabase
     .from("data_sources")
     .select("id, name, last_success_at, last_error_at, last_error, update_frequency, incident_count, is_enabled")
