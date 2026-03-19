@@ -18,4 +18,4 @@ What you expected to happen.
 **Environment**
 - Browser/OS:
 - Node version:
-- Deployment: (local / homelab / production)
+- Deployment: (local / production)

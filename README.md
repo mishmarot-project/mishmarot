@@ -2,7 +2,7 @@
 
 **Global Antisemitism Situational Awareness Dashboard**
 
-Provide timely, verified, multi-source situational awareness of antisemitic incidents worldwide through an open-source platform — empowering those who protect Jewish communities to make informed decisions, and those who study antisemitism to do so with better data.
+Provide timely, verified, multi-source situational awareness of antisemitic incidents worldwide through an open-source platform, empowering those who protect Jewish communities to make informed decisions and those who study antisemitism to do so with better data.
 
 > **מִשְׁמָרוֹת** (mishmarot) — the 24 priestly watches that maintained continuous guard over the Temple through rotating communal responsibility.
 
@@ -32,7 +32,7 @@ Quick Start section for running locally.
 
 ```
 mishmarot/
-├── apps/web/              # Next.js 15 dashboard (App Router)
+├── apps/web/              # Next.js 16 dashboard (App Router)
 ├── packages/
 │   ├── db/                # Drizzle ORM schema + migrations
 │   ├── ingestion/         # BullMQ worker base + source implementations
@@ -70,7 +70,7 @@ npm run workers:dev
 
 ## Classification System
 
-Mishmarot uses a two-dimensional taxonomy aligned with major monitoring organizations:
+Mishmarot uses a three-dimensional taxonomy aligned with major monitoring organizations:
 
 - **Dimension 1: Severity** — what happened (extreme violence → harassment/speech)
 - **Dimension 2: Manifestation** — ideological content (modern, othering, post-Shoah, Israel-related, religious)

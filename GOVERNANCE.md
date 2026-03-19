@@ -13,7 +13,7 @@ As partnerships develop, an advisory board of 3–5 people representing communit
 - Definitional disputes (e.g., edge cases in IHRA application)
 - Ethical considerations in data display and access
 
-The advisory board does not make code decisions — those remain with the maintainer and code contributors.
+The advisory board does not make code decisions; those remain with the maintainer and code contributors.
 
 ## Planned Phase 3: Fiscal Sponsorship
 

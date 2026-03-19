@@ -45,7 +45,7 @@ This project handles data about hate crimes. When contributing:
 
 **Private** (use [GitHub Security Advisories](https://github.com/mishmarot-project/mishmarot/security/advisories/new)): Security vulnerabilities, infrastructure incidents, anything referencing internal hostnames or IPs, legal matters.
 
-When in doubt, report privately — we can always make it public later.
+When in doubt, report privately. We can always make it public later.
 
 ## Questions?
 
