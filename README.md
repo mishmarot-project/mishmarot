@@ -14,29 +14,10 @@ Provide timely, verified, multi-source situational awareness of antisemitic inci
 
 ## Architecture
 
-```
-┌──────────────────────────────────────────┐
-│  Cloudflare Edge                         │
-│  DNS + TLS + Access (researcher gate)    │
-└──────────────┬───────────────────────────┘
-               │ cloudflared tunnel
-┌──────────────▼───────────────────────────┐
-│  RKE2 Cluster                            │
-│  ┌──────────┐  ┌──────────┐  ┌────────┐  │
-│  │ Next.js  │  │ Worker:  │  │Worker: │  │
-│  │ app      │  │ GDELT    │  │FBI/ADL │  │
-│  └──────────┘  └──────────┘  └────────┘  │
-│  ┌──────────┐  ┌───────────────────────┐  │
-│  │ Redis    │  │ cloudflared (HA)      │  │
-│  └──────────┘  └───────────────────────┘  │
-└──────────────────────────┬───────────────┘
-                           │
-┌──────────────────────────▼───────────────┐
-│  Supabase (self-hosted VM)               │
-│  PostgreSQL 16 + PostGIS + Realtime      │
-│  + PostgREST + GoTrue + PgBouncer       │
-└──────────────────────────────────────────┘
-```
+Mishmarot is a monorepo containing a web dashboard, data ingestion workers, and shared
+libraries. Production runs on a Kubernetes cluster behind a CDN with DDoS protection and
+TLS termination. The database is PostgreSQL with PostGIS for spatial queries. See the
+Quick Start section for running locally.
 
 ## Data Sources (MVP)
 
@@ -58,8 +39,6 @@ mishmarot/
 │   ├── privacy/           # Geographic suppression, temporal delay, access tiers
 │   └── shared/            # Types, constants, taxonomy definitions
 ├── workers/               # Worker entry point and Dockerfile
-├── deploy/
-│   └── charts/mishmarot/  # Helm chart for RKE2 deployment
 ├── docs/
 │   ├── taxonomy/          # Classification system specification
 │   └── methodology/       # Ingestion, normalization, and verification docs
