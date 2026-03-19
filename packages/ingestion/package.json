@@ -1,0 +1,12 @@
+{
+  "name": "@mishmarot/ingestion",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "@mishmarot/shared": "*",
+    "@mishmarot/db": "*",
+    "bullmq": "^5.25.0"
+  }
+}

@@ -1,0 +1,28 @@
+{{- if .Values.cloudflared.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mishmarot.fullname" . }}-cloudflared
+  labels:
+    {{- include "mishmarot.labels" . | nindent 4 }}
+    app.kubernetes.io/component: tunnel
+spec:
+  replicas: {{ .Values.cloudflared.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: tunnel
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: tunnel
+    spec:
+      containers:
+        - name: cloudflared
+          image: "{{ .Values.cloudflared.image.repository }}:{{ .Values.cloudflared.image.tag }}"
+          args: ["tunnel", "run"]
+          resources:
+            {{- toYaml .Values.cloudflared.resources | nindent 12 }}
+          envFrom:
+            - secretRef:
+                name: {{ include "mishmarot.fullname" . }}-cloudflared
+{{- end }}

@@ -1,0 +1,76 @@
+# Mishmarot Helm Values
+# See deploy/charts/mishmarot/templates/ for how these are used.
+
+app:
+  image:
+    repository: ghcr.io/mishmarot-project/web
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
+  env:
+    NEXT_PUBLIC_SUPABASE_URL: ""     # Set via sealed secret or external secret
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: ""
+
+workers:
+  gdelt:
+    enabled: true
+    image:
+      repository: ghcr.io/mishmarot-project/workers
+      tag: latest
+    command: ["node", "--loader", "tsx", "src/index.ts"]
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  batch:
+    enabled: true
+    image:
+      repository: ghcr.io/mishmarot-project/workers
+      tag: latest
+    command: ["node", "--loader", "tsx", "src/index.ts"]
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        cpu: 250m
+        memory: 256Mi
+
+supabase:
+  # External Supabase instance (self-hosted on dedicated VM)
+  url: "http://REDACTED"
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+    existingSecret: mishmarot-redis-secret
+    existingSecretPasswordKey: redis-password
+
+cloudflared:
+  enabled: true
+  replicas: 2
+  tunnelId: ""
+  image:
+    repository: cloudflare/cloudflared
+    tag: latest
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+namespace: mishmarot

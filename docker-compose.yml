@@ -1,0 +1,76 @@
+# Mishmarot — Local Development Stack
+#
+# Usage: docker compose up
+#
+# This runs PostgreSQL+PostGIS and Redis locally.
+# The Next.js app and workers run on the host via `npm run dev`.
+#
+# For a full self-contained stack (e.g., CI), use docker compose --profile full up
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mishmarot
+      POSTGRES_USER: mishmarot
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-localdev}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Run initial migration on first boot
+      - ./packages/db/migrations/0001_initial.sql:/docker-entrypoint-initdb.d/0001_initial.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mishmarot"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Full-stack profile: run the app and workers in containers
+  app:
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://mishmarot:${DB_PASSWORD:-localdev}@db:5432/mishmarot
+      NEXT_PUBLIC_SUPABASE_URL: http://localhost:8000
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:-placeholder}
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  workers:
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: workers/Dockerfile
+    environment:
+      DATABASE_URL: postgres://mishmarot:${DB_PASSWORD:-localdev}@db:5432/mishmarot
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  redisdata:
