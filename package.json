@@ -13,6 +13,7 @@
     "test": "turbo test",
     "db:generate": "turbo db:generate --filter=@mishmarot/db",
     "db:migrate": "turbo db:migrate --filter=@mishmarot/db",
+    "db:seed": "turbo db:seed --filter=@mishmarot/db",
     "workers:dev": "turbo dev --filter=workers",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
