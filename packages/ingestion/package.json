@@ -7,6 +7,6 @@
   "dependencies": {
     "@mishmarot/shared": "*",
     "@mishmarot/db": "*",
-    "bullmq": "^5.25.0"
+    "bullmq": "^5.71.1"
   }
 }
